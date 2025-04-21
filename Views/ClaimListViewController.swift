@@ -17,10 +17,24 @@ class ClaimListViewController: UIViewController {
         super.viewDidLoad()
         title = "Klaim Asuransi"
         view.backgroundColor = .systemBackground
+        
+        tableView.register(ClaimTableViewCell.self, forCellReuseIdentifier: ClaimTableViewCell.identifier)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        view.addSubview(tableView)
+        tableView.frame = view.bounds
+        
+        
         setupTableView()
         setupSearch()
         setupSpinner()
         bindViewModel()
+        
+        Task {
+            await viewModel.fetchClaims()
+        }
     }
 
     private func setupTableView() {
@@ -65,17 +79,14 @@ extension ClaimListViewController: UITableViewDataSource, UITableViewDelegate {
         return viewModel.count
     }
 
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let claim = viewModel.claim(at: indexPath.row)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-
-        var content = cell.defaultContentConfiguration()
-        content.text = claim.title
-        content.secondaryText = claim.body
-        content.secondaryTextProperties.numberOfLines = 2
-        cell.contentConfiguration = content
-        return cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ClaimTableViewCell.identifier, for: indexPath) as? ClaimTableViewCell else {
+                return UITableViewCell()
+            }
+        
+            let claim = viewModel.filteredClaims[indexPath.row]
+            cell.configure(with: claim)
+            return cell
     }
 
     func tableView(_ tableView: UITableView,
