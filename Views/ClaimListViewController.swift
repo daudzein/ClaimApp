@@ -89,13 +89,20 @@ extension ClaimListViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
     }
 
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let claim = viewModel.claim(at: indexPath.row)
         let detailVC = ClaimDetailViewController(claim: claim)
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            cell.alpha = 1
+        }
+    }
+
 }
 
 // MARK: - SearchBar Delegate

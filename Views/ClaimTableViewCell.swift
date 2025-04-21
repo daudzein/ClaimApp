@@ -14,7 +14,7 @@ class ClaimTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16)
-        label.numberOfLines = 0 // biar fleksibel
+        label.numberOfLines = 0
         return label
     }()
     
@@ -69,7 +69,12 @@ class ClaimTableViewCell: UITableViewCell {
     
     func configure(with claim: Claim) {
         titleLabel.text = claim.title.capitalized
+        titleLabel.textColor = UIColor(red: 38/255, green: 70/255, blue: 83/255, alpha: 1) // Dark cyan
+
         bodyLabel.text = claim.body
+        bodyLabel.textColor = UIColor(red: 55/255, green: 65/255, blue: 81/255, alpha: 1) // Soft charcoal
+
         infoLabel.text = "Klaim ID: \(claim.id) | Penggugat ID: \(claim.userId)"
+        infoLabel.textColor = UIColor(red: 100/255, green: 100/255, blue: 120/255, alpha: 1)
     }
 }
