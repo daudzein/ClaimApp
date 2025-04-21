@@ -10,3 +10,9 @@
 2. **Pindahkan semua file dan folder** ke dalam folder **`ClaimApp`**, kecuali:
    - **`ClaimApp.xcodeproj`**
    - **Folder `ClaimAppTests`**
+
+3. **Dokumentasi image ketika runing di device ada di folder "documentation image"
+
+
+
+#Trimakasih
