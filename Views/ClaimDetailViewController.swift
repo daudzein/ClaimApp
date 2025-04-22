@@ -23,7 +23,7 @@ class ClaimDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .black
         
         // Gradient Background
         let gradient = CAGradientLayer()
